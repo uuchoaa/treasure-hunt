@@ -6,6 +6,7 @@ class Winner < ApplicationRecord
   belongs_to :user
 
   before_save :calculate_distance
+  after_create :send_email_to_winner
 
   def calculate_distance
     treasure_coords = [TREASURE_LATITUDE, TREASURE_LONGITUDE]
