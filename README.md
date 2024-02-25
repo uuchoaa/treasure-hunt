@@ -14,7 +14,7 @@ This project is a Ruby on Rails-based Treasure Hunt game designed around a RESTf
 ## Technology Stack
 
 - **Framework**: Ruby on Rails
-- **Database**: <your-database> (e.g., PostgreSQL, MySQL)
+- **Database**: PostgreSQL
 - **Additional Libraries**: Geocoder for distance calculation
 
 ## Getting Started
@@ -23,14 +23,14 @@ This project is a Ruby on Rails-based Treasure Hunt game designed around a RESTf
 
 - Ruby 3
 - Rails 7
-- Postgres
+- PostgreSQL
 - A mail sending service configuration for Action Mailer
 
 ### Setup
 
 1. Clone the repository:
    ```
-   git clone <repository-url>
+   git clone https://github.com/uuchoaa/treasure-hunt
    ```
 2. Navigate to the project directory:
    ```
@@ -61,6 +61,15 @@ The API will be accessible at `http://localhost:3000`.
 
 - **List Winners**:
   GET `/winners` to retrieve a list of winners. Supports query parameters for sorting and pagination.
+
+### API Documentation
+
+Our Treasure Hunt game API is fully documented with Swagger. To access the documentation, start the Rails server and navigate to `/api-docs` in your web browser:
+
+```
+http://localhost:3000/api-docs
+```
+
 
 ## Contributing
 
