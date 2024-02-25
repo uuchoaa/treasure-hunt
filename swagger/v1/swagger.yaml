@@ -1,0 +1,64 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/guesses":
+    post:
+      summary: Submit a guess
+      tags:
+      - Guesses
+      parameters: []
+      responses:
+        '200':
+          description: guess submitted
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                latitude:
+                  type: number
+                  format: float
+                longitude:
+                  type: number
+                  format: float
+              required:
+              - email
+              - latitude
+              - longitude
+  "/winners":
+    get:
+      summary: Retrieves a list of winners
+      tags:
+      - Winners
+      responses:
+        '200':
+          description: winners found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  winners:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        user_id:
+                          type: integer
+                        distance_to_treasure:
+                          type: float
+                        email:
+                          type: string
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com

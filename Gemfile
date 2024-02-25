@@ -43,8 +43,17 @@ end
 
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
+  gem "spring"
 end
 
 
 gem "geocoder", "~> 1.8"
+
+gem 'rswag-api'
+gem 'rswag-ui'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 5.0.0'
+  gem 'rswag-specs'
+end
+

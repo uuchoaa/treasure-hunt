@@ -1,5 +1,4 @@
 class GuessesController < ApplicationController
-  skip_before_action :verify_authenticity_token
 
   def create
     user = User.find_or_create_by(email: guess_params[:email])
@@ -8,7 +7,7 @@ class GuessesController < ApplicationController
     if winner.save
       render json: { message: "Congratulations, you've found the treasure!" }, status: :ok
     else
-      render json: { message: "Keep trying!" }, status: :ok
+      render json: { message: "Keep trying!" }, status: :unprocessable_entity
     end
   end
 

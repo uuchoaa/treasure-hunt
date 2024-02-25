@@ -8,6 +8,14 @@ class Winner < ApplicationRecord
   before_save :calculate_distance
   after_create :send_email_to_winner
 
+  validates :latitude, :longitude, presence: true, numericality: true
+
+  def as_json(options = {})
+    super(options.merge(only: [:id, :distance_to_treasure, :latitude, :longitude])).merge(email: self.user.email)
+  end
+    
+  private
+
   def calculate_distance
     treasure_coords = [TREASURE_LATITUDE, TREASURE_LONGITUDE]
     user_coords = [latitude, longitude]
@@ -22,4 +30,7 @@ class Winner < ApplicationRecord
     end
   end
 
+  def send_email_to_winner
+    WinnerMailer.with(winner: self).congratulate.deliver_now
+  end
 end
