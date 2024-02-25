@@ -9,11 +9,12 @@ class Winner < ApplicationRecord
   after_create :send_email_to_winner
 
   validates :latitude, :longitude, presence: true, numericality: true
+  validates :user_id, uniqueness: true
 
   def as_json(options = {})
     super(options.merge(only: [:id, :distance_to_treasure, :latitude, :longitude])).merge(email: self.user.email)
   end
-    
+
   private
 
   def calculate_distance
