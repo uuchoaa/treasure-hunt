@@ -57,6 +57,8 @@ gem 'rswag-ui'
 group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'
   gem 'rswag-specs'
+  gem 'factory_bot_rails'
+   gem 'ffaker'
 end
 
 group :test do
@@ -65,3 +67,4 @@ end
 
 
 gem "simple_command", "~> 1.0"
+gem 'will_paginate', '~> 4.0'
