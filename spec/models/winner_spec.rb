@@ -43,5 +43,14 @@ RSpec.describe Winner, type: :model do
     end
   end
 
+  context 'when the distance calculation fails' do
+    it 'adds an error and aborts the save' do
+      winner = Winner.new(user: user, latitude: -40.416775, longitude: 3.703790)
+      allow(DistanceCalculator).to receive(:call).and_return(double(success?: false))
+      winner.save
+      expect(winner.errors[:distance_to_treasure]).to include("could not be calculated")
+    end
+  end
+
 
 end

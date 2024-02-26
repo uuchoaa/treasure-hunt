@@ -63,3 +63,5 @@ group :test do
   gem 'shoulda-matchers', '~> 6.0'
 end
 
+
+gem "simple_command", "~> 1.0"

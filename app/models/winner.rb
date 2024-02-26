@@ -10,10 +10,15 @@ class Winner < ApplicationRecord
   private
 
   def calculate_distance
-    treasure_coords = Rails.configuration.treasure[:coordinates].values
-    user_coords = [latitude, longitude]
 
-    distance_to_treasure = Geocoder::Calculations.distance_between(user_coords, treasure_coords) * 1000 # meters
+    command = DistanceCalculator.call(guess_coordinates: [latitude, longitude])
+
+    if command.success?
+      distance_to_treasure = command.result 
+    else
+      errors.add(:distance_to_treasure, "could not be calculated")
+      throw(:abort)
+    end
 
     if distance_to_treasure < Rails.configuration.treasure[:radius]
       self.distance_to_treasure = distance_to_treasure
