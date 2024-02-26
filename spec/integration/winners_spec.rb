@@ -8,6 +8,24 @@ describe 'Winners API' do
       tags 'Winners'
       produces 'application/json'
 
+      parameter name: 'page',
+                in: :query,
+                description: 'Page number (defaults to 1)',
+                type: :integer,
+                minimum: 1
+
+      parameter name: 'per_page',
+                in: :query,
+                description: 'Number of winners per page (defaults to 5)',
+                type: :integer,
+                minimum: 1
+
+      parameter name: 'sort_order',
+                in: :query,
+                description: 'Sorting order of the distance to treasure (ASC or DESC)',
+                type: :string,
+                enum: %w[ASC DESC]
+
       response '200', 'winners found' do
         schema type: :object,
               properties: {
@@ -17,9 +35,9 @@ describe 'Winners API' do
                     type: :object,
                     properties: {
                       id: { type: :integer },
-                      latitude: { type: :float },
-                      longitude: { type: :float },
-                      distance_to_treasure: { type: :float },
+                      latitude: { type: :number },
+                      longitude: { type: :number },
+                      distance_to_treasure: { type: :number },
                       email: { type: :string },
                     }
                   }
@@ -65,6 +83,22 @@ describe 'Winners API' do
           expect(json['prev_page']).to eq(2)
           expect(json['total_pages']).to eq(3)
           expect(json['total_entries']).to eq(11)
+        end
+
+        it 'returns empty list for page exceeding total pages' do
+          skip 'TO DO'
+        end
+        
+        it 'returns bad request for invalid page parameter' do
+          skip 'TO DO'
+        end
+        
+        it 'returns bad request for invalid per_page parameter' do
+          skip 'TO DO'
+        end
+        
+        it 'returns bad request for invalid sort_order parameter' do
+          skip 'TO DO'
         end
 
       end

@@ -6,13 +6,40 @@ info:
 paths:
   "/guesses":
     post:
-      summary: Submit a guess
+      summary: Submits a guess for the treasure location
       tags:
       - Guesses
+      description: Allows users to submit a guess for the treasure's location. If
+        the guess is within 1000 meters of the treasure, the user is marked as a winner,
+        and an email is sent to them confirming their victory.
       parameters: []
       responses:
         '200':
-          description: guess submitted
+          description: winner guess
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Congratulations, you've found the treasure!
+                examples:
+                  application/json:
+                    message: Congratulations, you've found the treasure!
+        '422':
+          description: wrong guess
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Keep trying!
+                examples:
+                  application/json:
+                    message: Keep trying!
       requestBody:
         content:
           application/json:
@@ -21,21 +48,53 @@ paths:
               properties:
                 email:
                   type: string
+                  description: User email
+                  example: user@example.com
                 latitude:
                   type: number
                   format: float
+                  description: Latitude of the guess
+                  example: 34.0522
                 longitude:
                   type: number
                   format: float
+                  description: Longitude of the guess
+                  example: -118.2437
               required:
               - email
               - latitude
               - longitude
+              example:
+                email: user@example.com
+                latitude: 34.0522
+                longitude: -118.2437
+        required: true
   "/winners":
     get:
       summary: Retrieves a list of winners
       tags:
       - Winners
+      parameters:
+      - name: page
+        in: query
+        description: Page number (defaults to 1)
+        minimum: 1
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Number of winners per page (defaults to 5)
+        minimum: 1
+        schema:
+          type: integer
+      - name: sort_order
+        in: query
+        description: Sorting order of the distance to treasure (ASC or DESC)
+        enum:
+        - ASC
+        - DESC
+        schema:
+          type: string
       responses:
         '200':
           description: winners found
@@ -51,12 +110,24 @@ paths:
                       properties:
                         id:
                           type: integer
-                        user_id:
-                          type: integer
+                        latitude:
+                          type: number
+                        longitude:
+                          type: number
                         distance_to_treasure:
-                          type: float
+                          type: number
                         email:
                           type: string
+                  current_page:
+                    type: integer
+                  next_page:
+                    type: integer
+                  prev_page:
+                    type: integer
+                  total_pages:
+                    type: integer
+                  total_entries:
+                    type: integer
 servers:
 - url: https://{defaultHost}
   variables:
