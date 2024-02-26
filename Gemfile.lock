@@ -105,6 +105,9 @@ GEM
     irb (1.11.2)
       rdoc
       reline (>= 0.4.2)
+    jbuilder (2.11.5)
+      actionview (>= 5.0.0)
+      activesupport (>= 5.0.0)
     json-schema (4.1.1)
       addressable (>= 2.8)
     listen (3.9.0)
@@ -245,6 +248,7 @@ DEPENDENCIES
   debug
   geocoder (~> 1.8)
   guard-rspec
+  jbuilder
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.8, >= 7.0.8.1)

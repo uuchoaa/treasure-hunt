@@ -15,20 +15,6 @@ RSpec.describe Winner, type: :model do
   let(:user) { User.create!(email: 'test@example.com') }
   let(:winner) { Winner.create!(user: user, latitude: 40.416775, longitude: -3.703790) }
 
-  describe '#as_json' do
-    it 'returns the expected JSON structure' do
-      expected_json = {
-        id: winner.id,
-        email: winner.user.email,
-        distance_to_treasure: winner.distance_to_treasure,
-        latitude: winner.latitude,
-        longitude: winner.longitude
-      }
-
-      expect(winner.as_json.symbolize_keys).to eq(expected_json)
-    end
-  end
-
   context 'when the distance to the treasure is within the radius' do
     it 'sets the distance_to_treasure attribute' do
       expect(winner.distance_to_treasure).to be_within(0.1).of(0)
