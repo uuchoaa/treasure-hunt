@@ -54,6 +54,21 @@ bin/rails server
 
 The API will be accessible at `http://localhost:3000`.
 
+## Treasure Configuration
+
+The location of the treasure is configured within the application using the following settings:
+
+- **Latitude**: The geographic latitude of the treasure.
+- **Longitude**: The geographic longitude of the treasure.
+- **Radius**: The radius (in meters) around the treasure that defines a winning guess.
+
+**Note**: To maintain the secrecy of the actual treasure location, these values are **not** stored within the code itself. Instead, they are configured through the Rails environment during application startup. Check `config/initializers/treasure_config.rb` for details. You can override the configuration through environment variables. Example:
+
+```
+TREASURE_RADIUS=500 TREASURE_LATITUDE=4.777775 TREASURE_LONGITUDE=2.777775 bin/rails server
+```
+
+
 ### Using the API
 
 - **Submit a Guess**:
