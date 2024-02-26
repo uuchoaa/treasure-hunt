@@ -44,6 +44,10 @@ This project is a Ruby on Rails-based Treasure Hunt game designed around a RESTf
    ```
    bin/rails db:create db:migrate
    ```
+5. Seed your database:
+   ```
+   bin/rails db:seed
+   ```
 
 ### Running the Application
 
